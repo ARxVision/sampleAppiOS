@@ -1,0 +1,11 @@
+framework module camera {
+  umbrella header "camera.h"
+  export *
+
+  module * { export * }
+}
+
+module camera.Swift {
+  header "camera-Swift.h"
+  requires objc
+}

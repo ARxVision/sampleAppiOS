@@ -1,0 +1,121 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0 effective-5.10 (swiftlang-6.0.0.9.10 clang-1600.0.26.2)
+// swift-module-flags: -target arm64-apple-ios17.3 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name camera
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import AVFoundation
+import Combine
+import Foundation
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_exported import camera
+import os.log
+import os
+public protocol AudioDeviceConnectionDelegate : AnyObject {
+  func audioDeviceDidConnect(metadata: [Swift.String : Any])
+  func audioDeviceDidDisconnect()
+}
+@_hasMissingDesignatedInitializers public class AudioDeviceConnectionManager : Foundation.ObservableObject {
+  public static let shared: camera.AudioDeviceConnectionManager
+  @Combine.Published @_projectedValueProperty($isHeadphonesConnected) public var isHeadphonesConnected: Swift.Bool {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $isHeadphonesConnected: Combine.Published<Swift.Bool>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($connectedDeviceMetadata) public var connectedDeviceMetadata: [Swift.String : Any]? {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $connectedDeviceMetadata: Combine.Published<[Swift.String : Any]?>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  public func checkWiredHeadphonesConnection()
+  public func startMonitoring()
+  public func stopMonitoring()
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public protocol ArxHeadsetApi : AnyObject {
+  func onDeviceConnectionError(error: any Swift.Error)
+  func onDevicePhotoReceived(image: UIKit.UIImage, frameDescriptor: camera.Resolution)
+  func onButtonClicked(button: camera.ArxButton, isLongPress: Swift.Bool)
+  func onDisconnect()
+  func onConnected()
+  func onImuDataUpdate(imuData: camera.ImuData)
+}
+@objc @objcMembers public class Resolution : ObjectiveC.NSObject {
+  @objc public init(width: Swift.Int, height: Swift.Int)
+  @objc deinit
+}
+public enum ArxButton : Swift.String, Swift.Decodable, Swift.CaseIterable {
+  case square
+  case circle
+  case triangle
+  case volumeUp
+  case volumeDown
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [camera.ArxButton]
+  public typealias RawValue = Swift.String
+  nonisolated public static var allCases: [camera.ArxButton] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum ButtonPressDuration : Swift.String, Swift.Decodable {
+  case short
+  case long
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@objc @objcMembers public class ImuData : ObjectiveC.NSObject, Swift.Decodable {
+  @objc public var id: Foundation.UUID?
+  @objc final public let acc_x: Swift.Float, acc_y: Swift.Float, acc_z: Swift.Float
+  @objc final public let gyr_x: Swift.Float, gyr_y: Swift.Float, gyr_z: Swift.Float
+  @objc final public let mag_x: Swift.Float, mag_y: Swift.Float, mag_z: Swift.Float
+  @objc final public let temperature: Swift.Float
+  @objc public init(acc_x: Swift.Float, acc_y: Swift.Float, acc_z: Swift.Float, gyr_x: Swift.Float, gyr_y: Swift.Float, gyr_z: Swift.Float, mag_x: Swift.Float, mag_y: Swift.Float, mag_z: Swift.Float, temperature: Swift.Float)
+  @objc deinit
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc @objcMembers public class ButtonData : ObjectiveC.NSObject, Swift.Decodable {
+  final public let button: camera.ArxButton
+  final public let press_duration: camera.ButtonPressDuration
+  public init(button: camera.ArxButton, press_duration: camera.ButtonPressDuration)
+  @objc deinit
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class ArxHeadsetHandler : ObjectiveC.NSObject {
+  public init(delegate: any camera.ArxHeadsetApi)
+  public func connect()
+  public func disconnect()
+  @objc deinit
+}
+extension camera.ArxButton : Swift.Equatable {}
+extension camera.ArxButton : Swift.Hashable {}
+extension camera.ArxButton : Swift.RawRepresentable {}
+extension camera.ButtonPressDuration : Swift.Equatable {}
+extension camera.ButtonPressDuration : Swift.Hashable {}
+extension camera.ButtonPressDuration : Swift.RawRepresentable {}
