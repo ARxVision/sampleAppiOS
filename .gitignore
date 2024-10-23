@@ -1,4 +1,56 @@
 # Xcode
+*.xcworkspace
+*.xcuserdata
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+
+# Exclude specific user data
+# This will ignore any developer-specific data like breakpoints, schemes, etc.
+*.xcscmblueprint
+*.xcuserdatad
+*.xcuserstate
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+Carthage/Checkouts/
+
+# Swift Package Manager
+/.build/
+/Packages
+.swiftpm/xcode/package.xcworkspace
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Build folder
+DerivedData/
+build/
+
+# .DS_Store (macOS file system)
+.DS_Store
+
+# Temporary files
+*.swp
+*.swo
+*.lock
+*.tmp
+
+# Code signing
+# This will ignore any local provisioning profiles and code signing configurations.
+*.mobileprovision
+*.xcconfig
+
+
+
+# Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
